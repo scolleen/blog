@@ -15,7 +15,7 @@ User.prototype.login = function (account, password) {
       try {
         let user = result[0];
         if (sha1(password) == user['password']) {
-          resolve(user['user_id']);
+          resolve(user);
         } else {
           reject('用户名或密码错误');
         }
@@ -57,8 +57,9 @@ User.prototype.register = function (username, email, password) {
         return;
       }
 
-      let sql = 'INSERT INTO `blog_user` (`username`, `email`, `password`) VALUES (?, ?, ?)';
-      mysql.query(sql, [username, email, password]).then(result => {
+      let salt = parseInt(Math.random() * 100000);
+      let sql = 'INSERT INTO `blog_user` (`username`, `email`, `password`, `salt`) VALUES (?, ?, ?, ?)';
+      mysql.query(sql, [username, email, password, salt]).then(result => {
         resolve(result)
       }, error => {
         reject(error)
@@ -66,6 +67,24 @@ User.prototype.register = function (username, email, password) {
 
     }, error => {
       reject(error)  
+    })
+  })
+}
+
+User.prototype.checkToken = function (user_id, user_token) {
+  return new Promise((resolve, reject) => {
+    let sql = 'SELECT * FROM blog_user WHERE user_id=?';
+    mysql.query(sql, [user_id]).then(result => {
+      if (result.length == 0) {
+        reject('用户不存在');
+      } else {
+        let user = result[0];
+        if (sha1(user_id.toString() + user['salt'].toString()) == user_token) {
+          resolve(user);
+        } else {
+          reject('验证失败');
+        }
+      }
     })
   })
 }

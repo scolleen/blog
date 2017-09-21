@@ -1,6 +1,15 @@
 var userModel = require('../model/user');
+var sha1 = require('sha1');
 
 var User = function () {};
+
+var setUserToken = function(res, userid, salt) {
+  let usertoken = sha1(userid + salt);
+  let option = { expires: new Date(Date.now() + 86400 * 30 * 1000) };
+
+  res.cookie('user_id', userid, option);
+  res.cookie('user_token', usertoken, option);
+};
 
 User.prototype.login = function (req, res) {
   let user = new userModel();
@@ -8,7 +17,8 @@ User.prototype.login = function (req, res) {
   let password = req.body.password;
 
   user.login(account, password).then((result) => {
-    res.redirect('/')
+    setUserToken(res, result['user_id'].toString(), result['salt'].toString());
+    res.redirect('/');
   }, (error) => {
     res.render('users/login', { title: '登录', error })
   });

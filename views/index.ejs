@@ -1,11 +1,44 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title><%= title %></title>
-    <link rel='stylesheet' href='/stylesheets/article.css' />
+    <title>Home - Yinxiupei</title>
+    <link rel='stylesheet' href='/stylesheets/index.css' />
   </head>
   <body>
-    <h1><%= title %></h1>
-    <p>Welcome to <%= title %></p>
+    <nav>
+      <div class="menu">
+        <div class="user-name">Devxp</div>
+        <div class="nav">
+          <span><a href="#">Home</a></span>
+          <span><a href="#">About</a></span>
+        </div>
+      </div>
+    </nav>
+
+    <article>
+      <div class="content">
+        <aside>
+          <img src="/images/display.jpg" alt="">
+          <div class="intro">
+            <p class="name">尹秀培</p>
+            <p class="address">Shanghai, China</p>
+          </div>
+        </aside>
+        <section>
+          <% for (var i = 0; i < list.length; i++) { %>  
+          <div class="article">
+            <a href="#" class="title"><%=list[i].title  %></a>
+            <div class="introduce"><%=(list[i].content.length > 200 ? list[i].content.substring(0, 200) + '...' : list[i].content) %></div>
+            <div class="footer"><%=list[i].created_time  %></div>
+          </div>
+          <% } %>  
+        </section>
+      </div>
+    </article>
+
+    <footer>
+      <p>Copyright © 2017 yinxiupei.</p>
+      <p>本站所有内容皆遵循<a href="https://creativecommons.org/licenses/by-nc-sa/3.0/cn/">CC BY-NC 3.0</a>协议.</p>
+    </footer>
   </body>
 </html>
