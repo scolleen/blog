@@ -1,0 +1,45 @@
+article {
+    background: #f3f6f8;
+    .content {
+        width: 1200px;
+        margin:  0 auto;
+        padding: 50px 0;
+        aside {
+            float: left;
+            width: 820px;
+            margin: 0 40px;
+            .form-container {
+                width: 100%;
+                box-sizing: border-box;
+                .form-item {
+                    background: #ffffff;
+                    padding: 5px 30px 15px;
+                    cursor: pointer;
+                    margin-bottom: 40px;
+                    h2 {
+                        color: #dfdfdf;
+                      }
+                    &:hover {
+                        background: #dfdfdf;
+                        filter:alpha(opacity=40);
+                        /* CSS3 standard */
+                        opacity:0.4;
+                        h2 {
+                            color: #ffffff
+                        }
+                    }
+                    .content-item {
+                        font-size: 14px;
+                        margin: 10px;
+                    }
+                }
+            }
+        }
+        nav {
+            float: left;
+            width: 300px;
+        }
+    }
+
+}
+

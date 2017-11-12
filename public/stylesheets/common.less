@@ -1,0 +1,95 @@
+body {
+  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+}
+
+a {
+  color: #00B7FF;
+}
+
+nav {
+    width: 100%;
+    background: white;
+    border-bottom: 1px solid #eceff2;
+    box-shadow: 0 1px 2px rgba(0,0,0,0.05);
+    .menu {
+        width: 1200px;
+        padding: 15px 0;
+        margin: auto;
+        overflow: hidden;
+        box-sizing: border-box;
+        .user-name {
+            width: 120px;
+            float: left;
+            color: #aaaaaa;
+            font-size: 24px;
+            font-weight: bold;
+            position: relative;
+            top: -4px;
+        }
+        .nav {
+            float: left;
+            span {
+                color: #aaaaaa;
+                font-size: 20px;
+                list-style: none;
+                padding: 15px 20px;
+                a {
+                    text-decoration: none;
+                    color: #aaaaaa;
+                    &:hover {
+                        color: #777;
+                    }
+                }
+            }
+        }
+        .setting {
+            float: right;
+            .setting-container {
+                float: left;
+                .setting-list {
+                    color: #aaaaaa;
+                    font-size: 14px;
+                    list-style: none;
+                    padding: 15px 10px;
+                    cursor: pointer;
+                    a {
+                        text-decoration: none;
+                        color: #aaaaaa;
+                        &:hover {
+                            color: #00B7FF;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+article {
+    background: rgb(243, 246, 248);
+    .content {
+        width: 1200px;
+        margin: auto;
+        padding: 50px 0;
+        overflow: hidden;
+        box-sizing: border-box;
+        footer {
+            margin: 10px 0;
+            padding: 0 15px;
+            p {
+                text-align: right;
+                color: #00B7FF;
+            }
+        }
+    }
+}
+
+
+footer {
+    border-top: 1px solid #eceff2;
+    padding: 20px 0;
+    text-align: center;
+    font-size: 16px;
+    color: #bbb;
+}
+

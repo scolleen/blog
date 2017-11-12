@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title><%= title %></title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link href="/stylesheets/article.css" rel="stylesheet">
+        <link href="/stylesheets/common.css" rel="stylesheet">
+        <link rel="stylesheet" type="" href="/stylesheets/components/style.css">
+        <link rel="stylesheet" type="" href="/stylesheets/components/editormd.css">
+    </head>
+    <body>
+        <%- include("../common/header.ejs") %>
+        <article>
+            <div class="content">
+                <header>
+                    <h2>新增内容</h2>
+                </header>
+                <p><%= error %></p>
+                <form method="post" class="create-container">
+                    <div class="container-item">
+                        <label class="title">标题</label>
+                        <input type="text" name="title" value="" class="head J_title">
+                    </div>
+                    <div class="container-item">
+                        <label class="title">内容</label>
+                        <div id="text-content">
+                            <textarea style="display:none;" name="content"></textarea>
+                        </div>
+                    </div>
+                    <div class="container-item center">
+                        <button class="btn J_submit" type="button">提交</button>
+                    </div>
+                </form>
+            </div>
+        </article>
+        <%- include("../common/footer.ejs") %>
+    </body>
+    <script src="/javascripts/lib/jquery.min.js"></script>
+    <script src="/javascripts/lib/editormd.js"></script>
+    <script type="text/javascript">
+        var textContent;
+
+        $(function() {
+            textContent = editormd("text-content", {
+                width           : "100%",
+                height          : 500,
+                htmlDecode      : "style,script,iframe", 
+                tex             : true,
+                emoji           : true,
+                taskList        : true,
+                flowChart       : true, 
+                sequenceDiagram : true
+            });
+
+            $('.J_submit').click(function () {
+                let content = textContent.getMarkdown();
+                let title = $('.J_title').val();
+                $.ajax({
+                    url: '/article/create',
+                    data: {
+                        title: title,
+                        content: content
+                    },
+                    type: 'POST',
+                    success: (data) => {
+                        console.log(data)
+                    },
+                    error: (error) => {
+                        console.log(error)
+                    }
+                })
+            })
+        });
+    </script>
+</html>

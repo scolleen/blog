@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title></title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link href="/stylesheets/article.css" rel="stylesheet">
+        <link href="/stylesheets/common.css" rel="stylesheet">
+    </head>
+    <body>
+        <%- include("./../common/header.ejs") %>
+        <article>
+            <div class="content">
+                <header>
+                    <h2><%= article.title %></h2>
+                </header>
+                <section>
+                    <div>
+                        <%= article.content %>
+                    </div>
+                </section>
+                <footer>
+                    <p><%= article.created_time %></p>
+                </footer>
+            </div>  
+        </article>
+    </body>
+</html>

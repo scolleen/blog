@@ -1,5 +1,5 @@
 var sha1 = require('sha1'); // sha1加密算法
-var mysql = require('../config/mysql'); // 链接数据库
+var mysql = require('../config/mysql'); // 连接数据库
 
 var User = function () {};
 

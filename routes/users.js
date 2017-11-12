@@ -22,6 +22,10 @@ router.get('/logout', (req, res) => {
   res.redirect('/users/login');
 });
 
+router.get('/about', (req, res) => {
+  res.render('information/self', { title: '关于'} )
+})
+
 router.post('/login', user.login);
 router.post('/register', user.register);
 
