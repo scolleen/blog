@@ -19,7 +19,11 @@
           </div>
           <% } %>  
           <div class="more">
-            加载更多
+            <span class="J_btn J_first" data-index="1">首页</span>
+            <span class="J_btn J_pre" data-index="">上一页</span>
+            <span class="J_btn J_current" data-index="1">1</span>
+            <span class="J_btn J_next" data-index="">下一页</span>
+            <span class="J_btn J_last" data-index="">末页</span>
           </div>
         </section>
       </div>
@@ -27,4 +31,25 @@
 
    <%- include("./common/footer.ejs") %>
   </body>
+  <script src="/javascripts/lib/jquery.min.js"></script>
+  <script type="text/javascript">
+    $(function () {
+      $('.J_btn').on('click', function () {
+          var index = $(this).attr('data-index')
+          $.ajax({
+            url: '/home/list',
+            type: 'POST',
+            data: {
+              page: index,
+            },
+            success: (result) => {
+              console.log(result)
+            },
+            error: (error) => {
+              console.log(error)
+            }
+          })
+      })
+    })
+  </script>
 </html>

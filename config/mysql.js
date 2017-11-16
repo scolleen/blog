@@ -1,9 +1,9 @@
 var mysql = require('mysql');   // 引用mysql模块
 
 let config = {
-    host: process.env.DB_HOST || '127.0.0.1',      // MySQL所在服务器IP
-    user: process.env.DB_USER || 'root',           // 用户名
-    password: process.env.DB_PASSWORD || '',           // 密码
+    host: process.env.DB_HOST || '123.206.199.206',      // MySQL所在服务器IP
+    user: process.env.DB_USER || 'yxpblog',           // 用户名
+    password: process.env.DB_PASSWORD || 'Ls8KC2cndZM9cIjA',           // 密码
     database: process.env.DB_NAME || 'yxpblog',      // 数据库名称
     port: process.env.DB_PORT || 3306,             // 端口号
     dateStrings: true,      // 时间以字符串形式显示，否则会有类似这样的显示：Thu Apr 14 2016 00:00:00 GMT+0800 (中国标准时间) 17:20:12
@@ -12,6 +12,7 @@ let config = {
 console.log(config)
 var db = function () {};
 
+// 连接池
 db.prototype.pool = mysql.createPool(config);
 db.prototype.query = function (sql, params) {
   return new Promise((resolve, reject) => {
