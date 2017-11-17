@@ -19,11 +19,19 @@
           </div>
           <% } %>  
           <div class="more">
-            <span class="J_btn J_first" data-index="1">首页</span>
-            <span class="J_btn J_pre" data-index="">上一页</span>
-            <span class="J_btn J_current" data-index="1">1</span>
-            <span class="J_btn J_next" data-index="">下一页</span>
-            <span class="J_btn J_last" data-index="">末页</span>
+            <a href="/?page=1"><span>首  页</span></a>
+            <% if (current <= 1) { %>
+              <span>上一页</span>
+            <% } else { %>
+              <a href="/?page=<%= current - 1 %>"><span>上一页</span></a>
+            <%  } %>
+            <span class="active"><%= point %></span>
+            <% if (current >= count) { %>
+              <span>下一页</span>
+            <% } else { %>
+              <a href="/?page=<%= current + 1 %>"><span>下一页</span></a>
+            <%  } %>
+            <a href="/?page=<%= count %>"><span>末  页</span></a>
           </div>
         </section>
       </div>
@@ -31,25 +39,4 @@
 
    <%- include("./common/footer.ejs") %>
   </body>
-  <script src="/javascripts/lib/jquery.min.js"></script>
-  <script type="text/javascript">
-    $(function () {
-      $('.J_btn').on('click', function () {
-          var index = $(this).attr('data-index')
-          $.ajax({
-            url: '/home/list',
-            type: 'POST',
-            data: {
-              page: index,
-            },
-            success: (result) => {
-              console.log(result)
-            },
-            error: (error) => {
-              console.log(error)
-            }
-          })
-      })
-    })
-  </script>
 </html>

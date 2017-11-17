@@ -6,3 +6,4 @@ var home = require('../controller/home');
 router.get('/', home.index);
 
 module.exports = router;
+

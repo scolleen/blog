@@ -4,6 +4,7 @@ var article = require('../controller/article')
 
 router.get('/read', article.read)
 router.get('/', article.read)
+
 router.get('/create', (req, res) => {
     res.render('article/create', { title: '新增文章', error: '' });
 });
