@@ -5,8 +5,8 @@ var Article = function () {};
 // 读取文章列表
 Article.prototype.list = function (page) {
     return new Promise((resolve, reject) => {
-        let sql = 'SELECT * FROM `blog_article` ORDER BY `article_id` DESC LIMIT ?,2'
-        mysql.query(sql, [(page - 1) * 2]).then(result => {
+        let sql = 'SELECT * FROM `blog_article` ORDER BY `article_id` DESC LIMIT ?,10'
+        mysql.query(sql, [(page - 1) * 10]).then(result => {
             resolve(result)
         }, error => {
             reject(error)
@@ -18,7 +18,7 @@ Article.prototype.count = function () {
     return new Promise((resolve, reject)  => {
         let sql = "SELECT count(*) as acount FROM `blog_article` "
         mysql.query(sql).then(result => {
-            let count = parseInt(result[0].acount) / 2
+            let count = parseInt(result[0].acount) / 10
             if (count  === 0) {
                 resolve(count)
             } else {
