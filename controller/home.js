@@ -41,4 +41,5 @@ Home.prototype.list = function (req, res) {
     console.log('请求错误')
   })
 }
+
 module.exports = new Home();

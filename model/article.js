@@ -75,4 +75,15 @@ Article.prototype.create = function(title, content) {
     })
 }
 
+// 删除文章
+Article.prototype.delete = function (id) {
+    return new Promise((resole, reject) => {
+        let sql = 'DELETE FROM `blog_article` WHERE article_id=?'
+        mysql.query(sql, [id]).then(result => {
+            resole(result)
+        }, error => {
+            reject(error)
+        })
+    })
+}
 module.exports = Article;

@@ -28,7 +28,7 @@
                             <tr>
                                 <td><%=list[i].article_id %></td>
                                 <td><%=list[i].title  %></td>
-                                <td><%=list[i].content.substring(0, 50) + '...'%></td>
+                                <td><%=list[i].content.substring(0, 40) + '...'%></td>
                                 <td><%=list[i].created_time  %></td>
                                 <td>
                                     <span class="J_editor yellow" data-index="<%=list[i].article_id %>">编辑</span>
@@ -60,11 +60,29 @@
         </article>
         <%- include("./common/footer.ejs") %>
     </body>
-    <!--<script type="text/javascript">-->
-        <!--$(function () {-->
-            <!--$('.J_delete').on('click', function () {-->
-                <!--console.log('执行删除操作')-->
-            <!--})-->
-        <!--})-->
-    <!--</script>-->
+    <script src="/javascripts/lib/jquery.min.js"></script>
+    <script type="text/javascript">
+        $(function () {
+            $('.J_delete').on('click', function () {
+                let id = $(this).attr('data-index')
+                $.ajax({
+                    url: '/delete',
+                    type: 'POST',
+                    data: {
+                        id: id
+                    },
+                    success: (result) => {
+                        console.log(result)
+                        if (result.code === 1) {
+                            window.alert(result.msg)
+                            window.location.href = '/'
+                        }
+                    },
+                    error: (error) => {
+                        console.log(error)
+                    }
+                })
+            })
+        })
+    </script>
 </html>
