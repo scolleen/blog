@@ -1,0 +1,108 @@
+.section{
+  background-color: white;
+  padding: 50px;
+  border-radius: 5px;
+  .point {
+    color: #aaaaaa;
+    font-size: 20px;
+    line-height: 2;
+  }
+  table {
+    width: 100%;
+    border: 1px solid #ebe3d6;
+    border-top: 2px solid #c9b792;
+    border-collapse: separate;
+    background-color: #fff;
+    border-spacing: 0;
+    thead {
+      th {
+        position: relative;
+        padding: 15px;
+        color: #6d5e56;
+        font-weight: 700;
+        background-color: #f1ede4;
+        text-align: center;
+        box-sizing: content-box;
+        border: 0;
+        outline: 0;
+      }
+    }
+    tbody {
+      width: 100%;
+      font-size: 12px;
+      tr {
+        text-align: center;
+        position: relative;
+        td {
+          position: relative;
+          padding: 15px;
+          line-height: 1.5;
+          &:before {
+            position: absolute;
+            left: 0;
+            top: 0;
+            content: '';
+            display: block;
+            width: 100%;
+            border-top: 1px dashed #ccc;
+          }
+          span {
+            display: inline-block;
+            padding: 5px 15px;
+            margin: 0 5px;
+            border-radius: 5px;
+          }
+          .yellow {
+            border:1px solid #c9b792;
+            color: #c9b792;
+            cursor: pointer;
+            &:hover {
+              background-color: #c9b792;
+              color: #ffffff;
+            }
+          }
+          .red {
+            border:1px solid #792020;
+            color: #792020;
+            cursor: pointer;
+            &:hover {
+              background-color: #792020;
+              color: #ffffff;
+            }
+          }
+        }
+        &:nth-child(odd) {
+          background-color: #ffffff;
+        }
+        &:nth-child(even) {
+          background-color: #f9f6f3;
+        }
+      }
+    }
+  }
+  .more {
+    margin: 20px 0;
+    text-align: center;
+    padding: 15px;
+    span {
+      padding: 8px 10px;
+      font-size: 12px;
+      box-sizing: border-box;
+      height: 30px;
+      color: #792020;
+      display: inline-block;
+      cursor: pointer;
+      border: 1px solid #792020;
+      border-radius: 5px;
+    }
+    .disabled {
+      color: #dfdfdf;
+      border: 1px solid #dfdfdf;
+    }
+    .active {
+      background-color: #792020;
+      color: #fff;
+      cursor: default;
+    }
+  }
+}

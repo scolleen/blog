@@ -22,8 +22,9 @@ router.get('/logout', (req, res) => {
   res.redirect('/users/login');
 });
 
+// 关于
 router.get('/about', (req, res) => {
-  res.render('information/self', { title: '关于'} )
+  res.render('information/self', { title: '关于'})
 })
 
 router.post('/login', user.login);
