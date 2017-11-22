@@ -83,6 +83,11 @@
                     }
                 })
             })
+
+            $('.J_editor').on('click', function () {
+                let id = $(this).attr('data-index')
+                window.location.href = '/article/create?id=' + id
+            })
         })
     </script>
 </html>
