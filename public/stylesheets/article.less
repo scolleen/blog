@@ -1,9 +1,21 @@
 header {
     text-align: center;
-    margin-bottom: 10px;
+    h2 {
+        padding-bottom: 20px;
+    }
 }
 section {
     margin: 0 20px 5px;
+    .time {
+        text-align: right;
+        background-color: #ffffff;
+        box-sizing: border-box;
+        padding: 20px 40px;
+        .commont {
+            margin-right: 20px;
+            color: #aaaaaa;
+        }
+    }
 }
 
 .create-container {
@@ -20,7 +32,6 @@ section {
             display: inline-block;
             padding: 5px 10px;
             font-size: 16px;
-            border: 0;
             -webkit-appearance: none;
             background-color: #fff;
             border-radius: 4px;
@@ -41,5 +52,42 @@ section {
     }
     .center {
         text-align: center;
+    }
+}
+.commont {
+    text-align: left !important;
+    padding: 20px 15px;
+    background-color: #ffffff;
+    margin-top: 10px;
+    h2 {
+        font-size: 16px;
+        color: #ccc;
+        font-weight: bold;
+    }
+    .commont-item {
+        color: #222;
+        width: 100%;
+        box-sizing: border-box;
+        padding: 10px 20px;
+        position: relative;
+        &:after {
+            position: absolute;
+            content: '';
+            height:1px;
+            width: 100%;
+            border-bottom: 1px solid #dfdfdf;
+        }
+        .info {
+            font-size: 12px;
+            line-height: 2;
+            margin-bottom: 5px;
+            .username {
+                margin-right: 15px;
+                color: #8B1928;
+            }
+        }
+        .commont-content {
+            line-height: 1.5;
+        }
     }
 }

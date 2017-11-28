@@ -1,15 +1,29 @@
 var articleModel = require('../model/article');
+var commontModel = require('../model/commont');
 
 var Aritcle = function () {}
 
 
 Aritcle.prototype.read = function (req, res) {
     let article = new articleModel();
+    let commont = new commontModel();
     let id = req.query.id
-    article.read(id).then(result => {
-        res.render('article/detail', { article: result })
-    }, error => {
+    let list = [{
+        commont_id: 1,
+        username: 'yxp',
+        content: 'hello, world',
+        article_id: 19,
+        created_time: new Date().getDay()
+    }]
+    commont.read(id).then(reponse => {
+        "use strict";
+      article.read(id).then(result => {
+        res.render('article/detail', { article: result, list: reponse})
+      }, error => {
         console.log('请求错误')
+      })
+    }, error => {
+      console.log('请求错误')
     })
 }
 

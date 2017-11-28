@@ -19,10 +19,25 @@
                 </header>
                 <section>
                     <div id="markdown-content"></div>
+                    <p class="time">
+                        <span class="commont">评论</span>
+                        <span><%= article.created_time %></span>
+                    </p>
                 </section>
-                <footer>
-                    <p><%= article.created_time %></p>
-                </footer>
+                <div class="commont">
+                    <h2>评论专区</h2>
+                    <% for (var i = 0; i < list.length; i ++) {%>
+                    <div class="commont-item">
+                        <div class="commont-content">
+                            <%= list[i].content %>
+                        </div>
+                        <p class=info>
+                            <span class="username"><%= list[i].username %></span>
+                            <span class="time"><%= list[i].created_time %></span>
+                        </p>
+                    </div>
+                    <%}%>
+                </div>
             </div>  
         </article>
 
