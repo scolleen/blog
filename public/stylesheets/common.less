@@ -94,3 +94,58 @@ footer {
     color: #bbb;
 }
 
+.dialog {
+    position: absolute;
+    width: 100%;
+    height:100%;
+    top:0;
+    bottom:0;
+    left:0;
+    right:0;
+    background: rgba(0, 0, 0, 0.5);
+    display: block;
+    .dialog-container {
+        width: 600px;
+        margin: 20px auto;
+        background: #ffffff;
+        border-radius: 5px;
+        padding: 10px 20px;
+        box-sizing: border-box;
+        .point {
+            position: relative;
+            font-size: 16px;
+            color: #aaaaaa;
+            padding: 0 0 8px 0;
+            font-weight: bold;
+        }
+        .title {
+           border-radius: 5px;
+            width: 100%;
+            display: block;
+            margin: 10px 0;
+            text-align: left;
+            input {
+                width:50%;
+                border: 1px solid #dddddd;
+                outline: none;
+                line-height: 2;
+                font-size: 13px;
+                padding: 5px 10px;
+                border-radius: 5px;
+                box-sizing: border-box;
+            }
+        }
+        .content {
+            width: 100%;
+            margin: 15px 0;
+            textarea {
+                width: 100%;
+                border: 1px solid #dddddd;
+                border-radius: 5px;
+                padding: 5px 10px;
+            }
+        }
+        .btn {
+        }
+    }
+}

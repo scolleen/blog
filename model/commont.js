@@ -7,7 +7,7 @@ Commont.prototype.read = function (id) {
     let sql = "SELECT * FROM `blog_comment` WHERE article_id=?"
     mysql.query(sql, [id]).then(result => {
       if (result.length === 0) {
-        resolve('暂无评论');
+        resolve('暂无评论')
       } else {
         resolve(result)
       }
