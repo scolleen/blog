@@ -8,13 +8,7 @@ Aritcle.prototype.read = function (req, res) {
     let article = new articleModel();
     let commont = new commontModel();
     let id = req.query.id
-    let list = [{
-        commont_id: 1,
-        username: 'yxp',
-        content: 'hello, world',
-        article_id: 19,
-        created_time: new Date().getDay()
-    }]
+
     commont.read(id).then(reponse => {
         "use strict";
       article.read(id).then(result => {
