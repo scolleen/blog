@@ -9,10 +9,10 @@ Aritcle.prototype.read = function (req, res) {
     let commont = new commontModel();
     let id = req.query.id
 
-    commont.read(id).then(reponse => {
-        "use strict";
+    commont.read(id).then(response => {
+        console.log(response)
       article.read(id).then(result => {
-        res.render('article/detail', { article: result, list: reponse})
+        res.render('article/detail', { article: result, list: response})
       }, error => {
         console.log('请求错误')
       })

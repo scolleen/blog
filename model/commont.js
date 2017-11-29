@@ -7,7 +7,7 @@ Commont.prototype.read = function (id) {
     let sql = "SELECT * FROM `blog_comment` WHERE article_id=?"
     mysql.query(sql, [id]).then(result => {
       if (result.length === 0) {
-        resolve('暂无评论')
+        resolve('')
       } else {
         resolve(result)
       }
@@ -17,11 +17,11 @@ Commont.prototype.read = function (id) {
   })
 }
 
-Commont.prototype.create = function (title, content, article_id) {
+Commont.prototype.create = function (username, content, article_id) {
   return new Promise((reslove, reject) => {
     // 校验数据
     try {
-      if (title.length < 1) {
+      if (username.length < 1) {
         reject('请填写一个用户名');
         return;
       }
@@ -37,7 +37,7 @@ Commont.prototype.create = function (title, content, article_id) {
     }
 
     let sql = "INSERT INTO `blog_comment` (`username`, `content`, `article_id`) VALUES (?,?,?)"
-    mysql.query(sql, [title, content, article_id]).then(result => {
+    mysql.query(sql, [username, content, article_id]).then(result => {
       reslove(result)
     }, error => {
       reject(error)

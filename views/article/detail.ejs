@@ -24,7 +24,7 @@
                         <span><%= article.created_time %></span>
                     </p>
                 </section>
-                <div class="commont">
+                <div class="commont J_container">
                     <h2>评论专区&nbsp;&nbsp;共<%= list.length %>条评论</h2>
                     <% if (list.length > 0) {%>
                         <% for (var i = 0; i < list.length; i ++) {%>
@@ -39,7 +39,7 @@
                             </div>
                         <% } %>
                     <% } else { %>
-                        暂无评论
+                        <div style="text-align: center; padding: 8px">暂无评论</div>
                     <% } %>
                 </div>
             </div>  
@@ -55,6 +55,7 @@
         <script src="/javascripts/lib/flowchart.min.js"></script>
         <script src="/javascripts/lib/jquery.flowchart.min.js"></script>
         <script src="/javascripts/lib/editormd.js"></script>
+        <script src="/javascripts/common/query.js"></script>
     <script type="text/javascript">
         $(function () {
             var markdown = $('#markdown-raw').text();
@@ -76,10 +77,43 @@
                 flowChart       : true,  // 默认不解析
                 sequenceDiagram : true,  // 默认不解析
             });
-
+            // 判断是否加载评论
+          $(window).scroll(function () {
+            var a = $('.J_container').offsetTop;
+            console.log(a)
+            if (a >= $(window).height()) {
+              console.log('div在可视范围');
+            } else {
+              console.log('不在可视范围')
+            }
+          });
+            let id = getParam('id')
             $('.J_commont').on('click', function () {
-              alert('点击评论')
+              $('.J_commontDialg').css('display', 'block')
             })
+            $('.J_onCancle').on('click', function () {
+              $('.J_commontDialg').css('display', 'none')
+            })
+          // 提交评论
+          $('.J_onConfirm').on('click', function () {
+            $('.J_commontDialg').css('display', 'none')
+            $.ajax({
+              url: '/article/commont/create',
+              type: 'POST',
+              data: {
+                username: $('.J_title').val(),
+                content: $('.J_content').val(),
+                article_id: id
+              },
+              success: (data) => {
+                alert('评论成功')
+                window.location.href = '/article?id=' + id
+              },
+              error: (data) => {
+                alert(data.msg)
+              }
+            })
+          })
         })
     </script>
     </body>
