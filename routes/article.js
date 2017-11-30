@@ -13,6 +13,7 @@ router.get('/create', (req, res) => {
 
 router.post('/create', article.create)
 
+router.post('/commont/read',commont.read)
 router.post('/commont/create',commont.create)
 
 module.exports = router;

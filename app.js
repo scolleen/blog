@@ -6,6 +6,7 @@ var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var lessMiddleware = require('less-middleware');
 var ejsMate = require('ejs-mate');
+var ejs = require('ejs');
 
 var index = require('./routes/index');
 var users = require('./routes/users');

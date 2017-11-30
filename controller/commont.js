@@ -4,9 +4,13 @@ var Commont = function () {}
 
 Commont.prototype.read = function (req, res) {
   let commont = new commontModel();
-  let id = req.query.id
+  let id = req.body.id
   commont.read(id).then(result => {
-    console.log(result)
+    res.json({
+      code: 1,
+      list: result,
+      msg: ''
+    })
   }, error => {
     console.log(error)
   })

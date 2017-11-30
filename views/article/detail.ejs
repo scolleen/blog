@@ -24,27 +24,45 @@
                         <span><%= article.created_time %></span>
                     </p>
                 </section>
-                <div class="commont J_container">
-                    <h2>评论专区&nbsp;&nbsp;共<%= list.length %>条评论</h2>
-                    <% if (list.length > 0) {%>
-                        <% for (var i = 0; i < list.length; i ++) {%>
-                            <div class="commont-item">
-                                <div class="commont-content">
-                                    <%= list[i].content %>
-                                </div>
-                                <p class=info>
-                                    <span class="username"><%= list[i].username %></span>
-                                    <span class="time"><%= list[i].created_time %></span>
-                                </p>
-                            </div>
-                        <% } %>
-                    <% } else { %>
-                        <div style="text-align: center; padding: 8px">暂无评论</div>
-                    <% } %>
+                <div class="commont J_container" id="J_container">
+                    <!--<h2>评论专区&nbsp;&nbsp;共<%= list.length %>条评论</h2>-->
+                    <!--<% if (list.length > 0) {%>-->
+                        <!--<% for (var i = 0; i < list.length; i ++) {%>-->
+                            <!--<div class="commont-item">-->
+                                <!--<div class="commont-content">-->
+                                    <!--<%= list[i].content %>-->
+                                <!--</div>-->
+                                <!--<p class=info>-->
+                                    <!--<span class="username"><%= list[i].username %></span>-->
+                                    <!--<span class="time"><%= list[i].created_time %></span>-->
+                                <!--</p>-->
+                            <!--</div>-->
+                        <!--<% } %>-->
+                    <!--<% } else { %>-->
+                        <!--<div style="text-align: center; padding: 8px">暂无评论</div>-->
+                    <!--<% } %>-->
                 </div>
             </div>  
         </article>
         <%- include("./../common/dialog.ejs")%>
+        <script charset="UTF-8" type="text/template" id="template">
+            <h2>评论专区&nbsp;&nbsp;共<%= list.length %>条评论</h2>
+            <% if (list.length > 0) {%>
+            <% for (var i = 0; i < list.length; i ++) {%>
+            <div class="commont-item">
+                <div class="commont-content">
+                    <%= list[i].content %>
+                </div>
+                <p class=info>
+                    <span class="username"><%= list[i].username %></span>
+                    <span class="time"><%= list[i].created_time %></span>
+                </p>
+            </div>
+            <% } %>
+            <% } else { %>
+            <div style="text-align: center; padding: 8px">暂无评论</div>
+            <% } %>
+        </script>
         <script src="/javascripts/lib/jquery.min.js"></script>
         <script src="/javascripts/lib/marked.min.js"></script>
         <script src="/javascripts/lib/prettify.min.js"></script>
@@ -55,6 +73,7 @@
         <script src="/javascripts/lib/flowchart.min.js"></script>
         <script src="/javascripts/lib/jquery.flowchart.min.js"></script>
         <script src="/javascripts/lib/editormd.js"></script>
+        <script src="/javascripts/lib/ejs.min.js"></script>
         <script src="/javascripts/common/query.js"></script>
     <script type="text/javascript">
         $(function () {
@@ -78,19 +97,28 @@
                 sequenceDiagram : true,  // 默认不解析
             });
             // 判断是否加载评论
-          $(window).scroll(function () {
-            var a = $('.J_container').offsetTop;
-            console.log(a)
-            if (a >= $(window).height()) {
-              console.log('div在可视范围');
-            } else {
-              console.log('不在可视范围')
-            }
-          });
+          console.log(window.screen.availHeight)
+          console.log(document.body.clientHeight)
+          if (window.screen.availHeight >= document.body.clientHeight) {
+            getCommont()
+          } else {
+            alert('34343443')
+            $(window).scroll(function () {
+              let a = $('.J_container').offset().top
+//            let a = document.getElementById('J_container').offsetTop;
+              if (a >= $(window).scrollTop() && a < ($(window).scrollTop()+$(window).height())) {
+                alert("div在可视范围");
+              } else {
+                console.log('不在可视范围')
+              }
+            });
+          }
+          // 显示弹框
             let id = getParam('id')
             $('.J_commont').on('click', function () {
               $('.J_commontDialg').css('display', 'block')
             })
+          // 隐藏弹框
             $('.J_onCancle').on('click', function () {
               $('.J_commontDialg').css('display', 'none')
             })
@@ -109,11 +137,34 @@
                 alert('评论成功')
                 window.location.href = '/article?id=' + id
               },
-              error: (data) => {
+              error: (error) => {
                 alert(data.msg)
               }
             })
           })
+          // 获取评论
+          function getCommont() {
+            let id = getParam('id')
+            $.ajax({
+              url: '/article/commont/read',
+              type: 'POST',
+              data: {
+                id: id
+              },
+              success: (data) => {
+                console.log(data)
+                bindHtml(data);
+              },
+              error: (error) => {
+                console.log(error)
+              }
+            })
+          }
+          function bindHtml(data) {
+            var str = $('#template').html()
+            var result = ejs.render(str, {list: data.list})
+            $('#J_container').html(result)
+          }
         })
     </script>
     </body>
