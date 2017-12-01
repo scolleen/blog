@@ -2,7 +2,7 @@
 var express = require('express');
 var router = express.Router();
 var article = require('../controller/article')
-var commont = require('../controller/commont')
+var comment = require('../controller/comment')
 
 router.get('/read', article.read)
 router.get('/', article.read)
@@ -13,7 +13,7 @@ router.get('/create', (req, res) => {
 
 router.post('/create', article.create)
 
-router.post('/commont/read',commont.read)
-router.post('/commont/create',commont.create)
+router.post('/comment/read',comment.read)
+router.post('/comment/create',comment.create)
 
 module.exports = router;

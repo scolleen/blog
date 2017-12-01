@@ -1,4 +1,4 @@
-var commontModel = require ('./../model/commont')
+var commontModel = require ('../model/comment')
 
 var Commont = function () {}
 

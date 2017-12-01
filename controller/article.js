@@ -1,5 +1,5 @@
 var articleModel = require('../model/article');
-var commontModel = require('../model/commont');
+var commontModel = require('../model/comment');
 
 var Aritcle = function () {}
 
@@ -12,7 +12,7 @@ Aritcle.prototype.read = function (req, res) {
     commont.read(id).then(response => {
         console.log(response)
       article.read(id).then(result => {
-        res.render('article/detail', { article: result, list: response})
+        res.render('article/detail', { article: result, list: response })
       }, error => {
         console.log('请求错误')
       })

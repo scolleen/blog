@@ -25,44 +25,10 @@
                     </p>
                 </section>
                 <div class="commont J_container" id="J_container">
-                    <!--<h2>评论专区&nbsp;&nbsp;共<%= list.length %>条评论</h2>-->
-                    <!--<% if (list.length > 0) {%>-->
-                        <!--<% for (var i = 0; i < list.length; i ++) {%>-->
-                            <!--<div class="commont-item">-->
-                                <!--<div class="commont-content">-->
-                                    <!--<%= list[i].content %>-->
-                                <!--</div>-->
-                                <!--<p class=info>-->
-                                    <!--<span class="username"><%= list[i].username %></span>-->
-                                    <!--<span class="time"><%= list[i].created_time %></span>-->
-                                <!--</p>-->
-                            <!--</div>-->
-                        <!--<% } %>-->
-                    <!--<% } else { %>-->
-                        <!--<div style="text-align: center; padding: 8px">暂无评论</div>-->
-                    <!--<% } %>-->
                 </div>
             </div>  
         </article>
         <%- include("./../common/dialog.ejs")%>
-        <script charset="UTF-8" type="text/template" id="template">
-            <h2>评论专区&nbsp;&nbsp;共<%= list.length %>条评论</h2>
-            <% if (list.length > 0) {%>
-            <% for (var i = 0; i < list.length; i ++) {%>
-            <div class="commont-item">
-                <div class="commont-content">
-                    <%= list[i].content %>
-                </div>
-                <p class=info>
-                    <span class="username"><%= list[i].username %></span>
-                    <span class="time"><%= list[i].created_time %></span>
-                </p>
-            </div>
-            <% } %>
-            <% } else { %>
-            <div style="text-align: center; padding: 8px">暂无评论</div>
-            <% } %>
-        </script>
         <script src="/javascripts/lib/jquery.min.js"></script>
         <script src="/javascripts/lib/marked.min.js"></script>
         <script src="/javascripts/lib/prettify.min.js"></script>
@@ -75,7 +41,7 @@
         <script src="/javascripts/lib/editormd.js"></script>
         <script src="/javascripts/lib/ejs.min.js"></script>
         <script src="/javascripts/common/query.js"></script>
-    <script type="text/javascript">
+        <script type="text/javascript">
         $(function () {
             var markdown = $('#markdown-raw').text();
             $('#markdown-raw').remove();
@@ -97,21 +63,21 @@
                 sequenceDiagram : true,  // 默认不解析
             });
             // 判断是否加载评论
-          console.log(window.screen.availHeight)
+          console.log(document.documentElement.clientHeight)
           console.log(document.body.clientHeight)
           if (window.screen.availHeight >= document.body.clientHeight) {
             getCommont()
           } else {
-            alert('34343443')
-            $(window).scroll(function () {
-              let a = $('.J_container').offset().top
-//            let a = document.getElementById('J_container').offsetTop;
-              if (a >= $(window).scrollTop() && a < ($(window).scrollTop()+$(window).height())) {
-                alert("div在可视范围");
-              } else {
-                console.log('不在可视范围')
-              }
-            });
+//            $(window).scroll(function () {
+//              let a = $('.J_container').offset().top
+////            let a = document.getElementById('J_container').offsetTop;
+//              if (a >= $(window).scrollTop() && a < ($(window).scrollTop()+$(window).height())) {
+//                console.log("div在可视范围");
+//              } else {
+//                console.log('不在可视范围')
+//              }
+//            });
+            getCommont()
           }
           // 显示弹框
             let id = getParam('id')
@@ -122,50 +88,75 @@
             $('.J_onCancle').on('click', function () {
               $('.J_commontDialg').css('display', 'none')
             })
+          // 评论用户的评论
+          $('body').delegate('.J_commentUser', 'click', function () {
+            $('.J_commontDialg').css('display', 'block')
+            var id = $(this).attr('data-commont-id')
+          })
           // 提交评论
           $('.J_onConfirm').on('click', function () {
             $('.J_commontDialg').css('display', 'none')
-            $.ajax({
-              url: '/article/commont/create',
-              type: 'POST',
-              data: {
-                username: $('.J_title').val(),
-                content: $('.J_content').val(),
-                article_id: id
-              },
-              success: (data) => {
-                alert('评论成功')
-                window.location.href = '/article?id=' + id
-              },
-              error: (error) => {
-                alert(data.msg)
-              }
-            })
+            alert(id)
+//            $.ajax({
+//              url: '/article/comment/create',
+//              type: 'POST',
+//              data: {
+//                username: $('.J_title').val(),
+//                content: $('.J_content').val(),
+//                article_id: id
+//              },
+//              success: (data) => {
+//                alert('评论成功')
+//                window.location.href = '/article?id=' + id
+//              },
+//              error: (error) => {
+//                alert(data.msg)
+//              }
+//            })
           })
           // 获取评论
           function getCommont() {
             let id = getParam('id')
             $.ajax({
-              url: '/article/commont/read',
+              url: '/article/comment/read',
               type: 'POST',
               data: {
                 id: id
               },
               success: (data) => {
-                console.log(data)
-                bindHtml(data);
+                bindHtml();
               },
               error: (error) => {
                 console.log(error)
               }
             })
           }
-          function bindHtml(data) {
+          function bindHtml() {
             var str = $('#template').html()
-            var result = ejs.render(str, {list: data.list})
-            $('#J_container').html(result)
+            console.log(str)
+//            var result = ejs.render(str, {list: data.list})
+            $('#J_container').html(str)
           }
         })
+    </script>
+    <script charset="UTF-8" type="text/template" id="template">
+        <h2>评论专区&nbsp;&nbsp;共<%= list.length %>条评论</h2>
+        <% if (list.length > 0) {%>
+        <% for (var i = 0; i < list.length; i ++) {%>
+        <div class="commont-item">
+            <div class="commont-content">
+                <%= list[i].content %>
+            </div>
+            <p class=info>
+                <span class="username"><%= list[i].username %></span>
+                <span class="comment J_commentUser" data-commont-id="<%= list[i].comment_id %>">评论</span>
+                <span class="time"><%= list[i].created_time %></span>
+            </p>
+        </div>
+        <% } %>
+        <% } else { %>
+        <div style="text-align: center; padding: 8px">暂无评论</div>
+        <% } %>
     </script>
     </body>
 </html>
