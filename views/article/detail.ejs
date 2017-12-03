@@ -20,11 +20,11 @@
                 <section>
                     <div id="markdown-content"></div>
                     <p class="time">
-                        <span class="commont J_commont">评论</span>
+                        <span class="comment J_comment" data-comment-id="0">评论</span>
                         <span><%= article.created_time %></span>
                     </p>
                 </section>
-                <div class="commont J_container" id="J_container">
+                <div class="comment J_container" id="J_container">
                 </div>
             </div>  
         </article>
@@ -66,7 +66,7 @@
           console.log(document.documentElement.clientHeight)
           console.log(document.body.clientHeight)
           if (window.screen.availHeight >= document.body.clientHeight) {
-            getCommont()
+            getComment()
           } else {
 //            $(window).scroll(function () {
 //              let a = $('.J_container').offset().top
@@ -77,45 +77,53 @@
 //                console.log('不在可视范围')
 //              }
 //            });
-            getCommont()
+            getComment()
           }
           // 显示弹框
             let id = getParam('id')
-            $('.J_commont').on('click', function () {
-              $('.J_commontDialg').css('display', 'block')
-            })
+            var commentNumber = 0
+            var commentname = ''
+//            $('.J_commont').on('click', function () {
+//              $('.J_commontDialg').css('display', 'block')
+//            })
           // 隐藏弹框
             $('.J_onCancle').on('click', function () {
-              $('.J_commontDialg').css('display', 'none')
+              $('.J_commentDialg').css('display', 'none')
             })
           // 评论用户的评论
-          $('body').delegate('.J_commentUser', 'click', function () {
-            $('.J_commontDialg').css('display', 'block')
-            var id = $(this).attr('data-commont-id')
+          $('body').delegate('.J_comment', 'click', function () {
+            $('.J_commentDialg').css('display', 'block');
+            commentNumber = $(this).attr('data-comment-id');
+            commentname = $(this).parent().find('.J_username').html()
+              alert(commentname)
           })
           // 提交评论
           $('.J_onConfirm').on('click', function () {
-            $('.J_commontDialg').css('display', 'none')
-            alert(id)
-//            $.ajax({
-//              url: '/article/comment/create',
-//              type: 'POST',
-//              data: {
-//                username: $('.J_title').val(),
-//                content: $('.J_content').val(),
-//                article_id: id
-//              },
-//              success: (data) => {
-//                alert('评论成功')
-//                window.location.href = '/article?id=' + id
-//              },
-//              error: (error) => {
-//                alert(data.msg)
-//              }
-//            })
+              if (commentNumber === 0) {
+
+              } else {
+                  commentname = ''
+              }
+            $('.J_commentDialg').css('display', 'none')
+            $.ajax({
+              url: '/article/comment/create',
+              type: 'POST',
+              data: {
+                username: $('.J_title').val(),
+                content: $('.J_content').val(),
+                article_id: id
+              },
+              success: (data) => {
+                alert('评论成功')
+                window.location.href = '/article?id=' + id
+              },
+              error: (error) => {
+                alert(data.msg)
+              }
+            })
           })
           // 获取评论
-          function getCommont() {
+          function getComment() {
             let id = getParam('id')
             $.ajax({
               url: '/article/comment/read',
@@ -124,39 +132,41 @@
                 id: id
               },
               success: (data) => {
-                bindHtml();
+                bindHtml(data);
               },
               error: (error) => {
                 console.log(error)
               }
             })
           }
-          function bindHtml() {
+          // 节点绑定
+          function bindHtml(data) {
+              ejs.open = '{{';
+              ejs.close = '}}';
             var str = $('#template').html()
-            console.log(str)
-//            var result = ejs.render(str, {list: data.list})
-            $('#J_container').html(str)
+            var result = ejs.render(str, {list: data.list})
+            $('#J_container').html(result)
           }
         })
     </script>
     <script charset="UTF-8" type="text/template" id="template">
-        <h2>评论专区&nbsp;&nbsp;共<%= list.length %>条评论</h2>
-        <% if (list.length > 0) {%>
-        <% for (var i = 0; i < list.length; i ++) {%>
-        <div class="commont-item">
-            <div class="commont-content">
-                <%= list[i].content %>
+        <h2>评论专区&nbsp;&nbsp;共{{= list.length }}条评论</h2>
+        {{ if (list.length > 0) { }}
+        {{ for (var i = 0; i < list.length; i ++) { }}
+        <div class="comment-item">
+            <div class="comment-content">
+                {{= list[i].content }}
             </div>
             <p class=info>
-                <span class="username"><%= list[i].username %></span>
-                <span class="comment J_commentUser" data-commont-id="<%= list[i].comment_id %>">评论</span>
-                <span class="time"><%= list[i].created_time %></span>
+                <span class="username J_username">{{= list[i].username }}</span>
+                <span class="comment J_comment" data-comment-id="{{= list[i].comment_id }}">评论</span>
+                <span class="time">{{= list[i].created_time }}</span>
             </p>
         </div>
-        <% } %>
-        <% } else { %>
+        {{ } }}
+        {{ } else { }}
         <div style="text-align: center; padding: 8px">暂无评论</div>
-        <% } %>
+        {{ } }}
     </script>
     </body>
 </html>

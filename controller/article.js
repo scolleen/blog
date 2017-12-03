@@ -9,16 +9,21 @@ Aritcle.prototype.read = function (req, res) {
     let commont = new commontModel();
     let id = req.query.id
 
-    commont.read(id).then(response => {
-        console.log(response)
-      article.read(id).then(result => {
-        res.render('article/detail', { article: result, list: response })
-      }, error => {
-        console.log('请求错误')
-      })
+    article.read(id).then(result => {
+        res.render('article/detail', { article: result })
     }, error => {
-      console.log('请求错误')
+        console.log('请求错误')
     })
+    // commont.read(id).then(response => {
+    //     console.log(response)
+    //   article.read(id).then(result => {
+    //     res.render('article/detail', { article: result, list: response })
+    //   }, error => {
+    //     console.log('请求错误')
+    //   })
+    // }, error => {
+    //   console.log('请求错误')
+    // })
 }
 
 Aritcle.prototype.create = function (req, res) {
