@@ -15,4 +15,42 @@
             </ul>
         </div>
     </div>
+    <div class="link">
+        <div class="text">BGM</div>
+        <div class="link-container">
+            <audio onended="playBGm()"
+                   class="J_audio"
+                   src="/bgm/chengdu.mp3"
+                   controls="controls"
+                   loop="loop"
+                   autoplay="autoplay"
+                   style="width: 100%">
+            </audio>
+        </div>
+    </div>
 </aside>
+
+<script src="/javascripts/lib/jquery.min.js"></script>
+<script>
+//  window.onload = function () {
+//    var bgmlist = ['/bgm/chengdu.mp3', '/bgm/ScarboroughFair.mp3'];
+//    function playBGm() {
+//      $(this).attr('src', '/bgm/ScarboroughFair.mp3');
+//      alert('4333443')
+//    if (i < length) {
+//      alert(i, this)
+//      $(this).attr('src', bgmlist[i]);
+//      i ++
+//    }
+//    }
+//  }
+  function playBGm() {
+    alert('4333443')
+    $('.J_audio').attr('src', '/bgm/fair.mp3');
+//    if (i < length) {
+//      alert(i, this)
+//      $(this).attr('src', bgmlist[i]);
+//      i ++
+//    }
+  }
+</script>

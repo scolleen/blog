@@ -22,6 +22,7 @@ Commont.prototype.create = function (req, res) {
   let content = req.body.content
   let article_id = req.body.article_id
   commont.create(username, content, article_id).then(result => {
+    console.log(result)
     res.json({
       code: 1,
       msg: '提交成功'

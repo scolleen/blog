@@ -12,7 +12,9 @@ router.get('/create', (req, res) => {
 });
 
 router.post('/create', article.create)
+router.post('/update', article.update)
 
+// 评论接口
 router.post('/comment/read',comment.read)
 router.post('/comment/create',comment.create)
 

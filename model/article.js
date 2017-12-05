@@ -74,7 +74,6 @@ Article.prototype.create = function(title, content) {
         })
     })
 }
-
 // 删除文章
 Article.prototype.delete = function (id) {
     return new Promise((resole, reject) => {
@@ -85,5 +84,32 @@ Article.prototype.delete = function (id) {
             reject(error)
         })
     })
+}
+// 修改文章内容
+Article.prototype.update = function (title, content, id) {
+  return new Promise((resole, reject) => {
+      let sql = 'UPDATE `blog_article` SET title=?, content=? WHERE article_id=?'
+    mysql.query(sql, [title, content, id]).then(result => {
+      // 校验数据
+      try {
+        if (title.length < 2) {
+          reject('文章标题不能为空');
+          return;
+        }
+
+        if (content.length < 10) {
+          reject('文章内容不能低于10字');
+          return;
+        }
+
+      } catch (error) {
+        reject('系统错误，请稍后再试');
+        return;
+      }
+        resole(result)
+    }, error => {
+        reject(error)
+    })
+  })
 }
 module.exports = Article;

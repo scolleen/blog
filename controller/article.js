@@ -1,12 +1,10 @@
 var articleModel = require('../model/article');
-var commontModel = require('../model/comment');
 
 var Aritcle = function () {}
 
 
 Aritcle.prototype.read = function (req, res) {
     let article = new articleModel();
-    let commont = new commontModel();
     let id = req.query.id
 
     article.read(id).then(result => {
@@ -14,16 +12,6 @@ Aritcle.prototype.read = function (req, res) {
     }, error => {
         console.log('请求错误')
     })
-    // commont.read(id).then(response => {
-    //     console.log(response)
-    //   article.read(id).then(result => {
-    //     res.render('article/detail', { article: result, list: response })
-    //   }, error => {
-    //     console.log('请求错误')
-    //   })
-    // }, error => {
-    //   console.log('请求错误')
-    // })
 }
 
 Aritcle.prototype.create = function (req, res) {
@@ -60,5 +48,24 @@ Aritcle.prototype.delete = function (req, res) {
             msg: error
         })
     })
+}
+
+Aritcle.prototype.update = function (req, res) {
+  let aritcle = new articleModel()
+  let id = req.body.id
+  let title = req.body.title
+  let content = req.body.content
+  aritcle.update(title, content, id).then(result => {
+      res.json({
+        code: 1,
+        body: result,
+        msg: '修改成功'
+      })
+  }, error => {
+      res.json({
+        code: 0,
+        msg: error
+      })
+  })
 }
 module.exports = new Aritcle();
