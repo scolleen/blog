@@ -22,7 +22,6 @@
                    class="J_audio"
                    src="/bgm/chengdu.mp3"
                    controls="controls"
-                   loop="loop"
                    autoplay="autoplay"
                    style="width: 100%">
             </audio>
@@ -32,25 +31,17 @@
 
 <script src="/javascripts/lib/jquery.min.js"></script>
 <script>
-//  window.onload = function () {
-//    var bgmlist = ['/bgm/chengdu.mp3', '/bgm/ScarboroughFair.mp3'];
-//    function playBGm() {
-//      $(this).attr('src', '/bgm/ScarboroughFair.mp3');
-//      alert('4333443')
-//    if (i < length) {
-//      alert(i, this)
-//      $(this).attr('src', bgmlist[i]);
-//      i ++
-//    }
-//    }
-//  }
+  let bgmList = ['/bgm/chengdu.mp3', '/bgm/fair.mp3'];
+  let length = bgmList.length;
+  let i = 0;
+  // 结束后循环背景音乐
   function playBGm() {
-    alert('4333443')
-    $('.J_audio').attr('src', '/bgm/fair.mp3');
-//    if (i < length) {
-//      alert(i, this)
-//      $(this).attr('src', bgmlist[i]);
-//      i ++
-//    }
+    i ++
+    if (i < length) {
+      $('.J_audio').attr('src', bgmList[i]);
+    } else {
+      i = 0;
+      $('.J_audio').attr('src', bgmList[i]);
+    }
   }
 </script>
