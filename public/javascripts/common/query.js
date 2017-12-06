@@ -1,4 +1,3 @@
-
 var getParam = function (key) {
   "use strict";
   var reg = new RegExp("(^|&)" + key + "=([^&]*)(&|$)");

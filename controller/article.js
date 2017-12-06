@@ -3,7 +3,7 @@ var articleModel = require('../model/article');
 var Aritcle = function () {}
 
 
-Aritcle.prototype.read = function (req, res) {
+Aritcle.prototype.detail = function (req, res) {
     let article = new articleModel();
     let id = req.query.id
 
@@ -12,6 +12,25 @@ Aritcle.prototype.read = function (req, res) {
     }, error => {
         console.log('请求错误')
     })
+}
+
+Aritcle.prototype.read = function (req, res) {
+  let article = new articleModel()
+  let id = req.body.id
+  article.read(id).then(result => {
+    "use strict";
+    res.json({
+      code: 1,
+      body: result,
+      msg: ''
+    }, error => {
+      res.json({
+        code: 0,
+        body: error,
+        msg: '请求错误'
+      })
+    })
+  })
 }
 
 Aritcle.prototype.create = function (req, res) {

@@ -19,13 +19,22 @@
                 <p><%= error %></p>
                 <form method="post" class="create-container">
                     <div class="container-item">
+                        <label class="title">文章类型</label>
+                        <select class="head J_type">
+                            <option value="1">前端</option>
+                            <option value="2">文字</option>
+                            <option value="3">心情</option>
+                            <option value="4">瞎聊</option>
+                        </select>
+                    </div>
+                    <div class="container-item">
                         <label class="title">标题</label>
                         <input type="text" name="title" value="" class="head J_title">
                     </div>
                     <div class="container-item">
                         <label class="title">内容</label>
                         <div id="text-content">
-                            <textarea style="display:none;" name="content"></textarea>
+                            <!--<textarea style="display:none;" name="content"></textarea>-->
                         </div>
                     </div>
                     <div class="container-item center">
@@ -37,9 +46,12 @@
         <%- include("../common/footer.ejs") %>
     </body>
     <script src="/javascripts/lib/jquery.min.js"></script>
+    <script src="/javascripts/common/query.js"></script>
     <script src="/javascripts/lib/editormd.js"></script>
     <script type="text/javascript">
         var textContent;
+        var param = getParam('id');
+        console.log(param)
 
         $(function() {
             textContent = editormd("text-content", {
@@ -77,5 +89,22 @@
                 })
             })
         });
+
+        // 修改文章内荣
+        if (param !== undefined) {
+          $.ajax({
+            url: '',
+            type: 'POST',
+            data: {
+              id: param
+            },
+            success: (result) => {
+              console.log(result)
+            },
+            error: (error) => {
+              console.log(error)
+            }
+          })
+        }
     </script>
 </html>

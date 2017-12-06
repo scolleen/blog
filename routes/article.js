@@ -4,8 +4,8 @@ var router = express.Router();
 var article = require('../controller/article')
 var comment = require('../controller/comment')
 
-router.get('/read', article.read)
-router.get('/', article.read)
+router.get('/read', article.detail)
+router.get('/', article.detail)
 
 router.get('/create', (req, res) => {
     res.render('article/create', { title: '新增文章', error: '' });
