@@ -34,7 +34,6 @@
                     <div class="container-item">
                         <label class="title">内容</label>
                         <div id="text-content">
-                            <!--<textarea style="display:none;" name="content"></textarea>-->
                         </div>
                     </div>
                     <div class="container-item center">
@@ -47,11 +46,20 @@
     </body>
     <script src="/javascripts/lib/jquery.min.js"></script>
     <script src="/javascripts/common/query.js"></script>
+
+    <script src="/javascripts/lib/marked.min.js"></script>
+    <script src="/javascripts/lib/prettify.min.js"></script>
+
+    <script src="/javascripts/lib/raphael.min.js"></script>
+    <script src="/javascripts/lib/underscore.min.js"></script>
+    <script src="/javascripts/lib/sequence-diagram.min.js"></script>
+    <script src="/javascripts/lib/flowchart.min.js"></script>
+    <script src="/javascripts/lib/jquery.flowchart.min.js"></script>
     <script src="/javascripts/lib/editormd.js"></script>
+    <script src="/javascripts/lib/ejs.min.js"></script>
     <script type="text/javascript">
         var textContent;
         var param = getParam('id');
-        console.log(param)
 
         $(function() {
             textContent = editormd("text-content", {
@@ -93,13 +101,25 @@
         // 修改文章内荣
         if (param !== undefined) {
           $.ajax({
-            url: '',
+            url: '/article/edit',
             type: 'POST',
             data: {
               id: param
             },
             success: (result) => {
-              console.log(result)
+              let data = result.body
+              $('.J_title').val(data.title)
+              console.log(data.content)
+              var testEditormdView = editormd.markdownToHTML("text-content", {
+                markdown        : data.content ,//+ "\r\n" + $("#append-test").text(),
+                htmlDecode      : "style,script,iframe",  // you can filter tags decode
+                tocm            : true,    // Using [TOCM]
+                emoji           : true,
+                taskList        : true,
+                tex             : true,  // 默认不解析
+                flowChart       : true,  // 默认不解析
+                sequenceDiagram : true,  // 默认不解析
+              });
             },
             error: (error) => {
               console.log(error)

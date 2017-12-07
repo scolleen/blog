@@ -4,12 +4,14 @@ var router = express.Router();
 var article = require('../controller/article')
 var comment = require('../controller/comment')
 
-router.get('/read', article.detail)
-router.get('/', article.detail)
+router.get('/read', article.read)
+router.get('/', article.read)
 
 router.get('/create', (req, res) => {
     res.render('article/create', { title: '新增文章', error: '' });
 });
+
+router.post('/edit', article.edit)
 
 router.post('/create', article.create)
 router.post('/update', article.update)
