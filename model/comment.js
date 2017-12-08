@@ -2,6 +2,9 @@ var mysql = require('../config/mysql')
 
 var Commont = function () {};
 
+// 评论类型： 0：文章评论 1：留言板
+
+// 获取评论
 Commont.prototype.read = function (id) {
   return new Promise((resolve, reject) => {
     let sql = "SELECT * FROM `blog_comment` WHERE article_id=?"
@@ -17,6 +20,7 @@ Commont.prototype.read = function (id) {
   })
 }
 
+// 创建评论
 Commont.prototype.create = function (username, content, article_id) {
   return new Promise((reslove, reject) => {
     // 校验数据
@@ -39,6 +43,34 @@ Commont.prototype.create = function (username, content, article_id) {
     let sql = "INSERT INTO `blog_comment` (`username`, `content`, `article_id`) VALUES (?,?,?)"
     mysql.query(sql, [username, content, article_id]).then(result => {
       reslove(result)
+    }, error => {
+      reject(error)
+    })
+  })
+}
+
+// 获取评论列表
+Commont.prototype.list = function () {
+  return new Promise((resolve, reject) => {
+    let sql = "SELECT * FROM `blog_comment`"
+    mysql.query(sql, []).then(result => {
+      if (result.length === 0) {
+        resolve('')
+      } else {
+        resolve(result)
+      }
+    }, error => {
+      reject(error)
+    })
+  })
+}
+
+// 删除评论
+Commont.prototype.delete = function (id) {
+  return new Promise((resole, reject) => {
+    let sql = 'DELETE FROM `blog_comment` WHERE article_id=?'
+    mysql.query(sql, [id]).then(result => {
+      resole(result)
     }, error => {
       reject(error)
     })

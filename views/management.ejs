@@ -2,8 +2,6 @@
 <html lang="en">
     <head>
         <title><%= title %></title>
-        <!--<meta charset="UTF-8">-->
-        <!--<meta name="viewport" content="width=device-width, initial-scale=1">-->
         <link href="/stylesheets/management.css" rel="stylesheet">
         <link href="/stylesheets/common.css" rel="stylesheet">
     </head>
@@ -12,7 +10,19 @@
         <article>
             <div class="content">
                 <div class="section">
-                    <div class="point">文章列表</div>
+                    <div class="setting-container">
+                        <sapn class="setting-list">
+                            <a href="/article/create">新增</a>
+                        </sapn>
+                        <span class="setting-list">
+                            <a href="/users/login">退出</a>
+                        </span>
+                    </div>
+                    <div class="list">
+                        <span class="point active J_list">文章列表</span>
+                        <span class="point J_list">评论列表</span>
+                        <span class="point J_list">留言板</span>
+                    </div>
                     <table>
                         <thead>
                         <tr>
@@ -63,6 +73,7 @@
     <script src="/javascripts/lib/jquery.min.js"></script>
     <script type="text/javascript">
         $(function () {
+          let token =
             $('.J_delete').on('click', function () {
                 let id = $(this).attr('data-index')
                 $.ajax({

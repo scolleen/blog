@@ -5,3 +5,11 @@ var getParam = function (key) {
   if(sParameterName != null) return unescape(sParameterName[2]);
   return undefined;
 }
+
+var getCookie =function (key) {
+  var arr, reg = new RegExp("(^| )"+key+"=([^;]*)(;|$)");
+  if(arr = document.cookie.match(reg))
+    return unescape(arr[2]);
+  else
+    return undefined;
+}

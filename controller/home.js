@@ -25,6 +25,10 @@ Home.prototype.index = function (req, res) {
 Home.prototype.list = function (req, res) {
   let index = new articleModel();
   let page = req.query.page
+  if (req.cookies.user_token === undefined) {
+    window.location.href = '/'
+    return
+  }
   if (page === undefined) {
     page = 1
   } else {
@@ -40,6 +44,11 @@ Home.prototype.list = function (req, res) {
   }, error => {
     console.log('请求错误')
   })
+}
+
+// 获取评论列表
+Home.prototype.comment = function () {
+
 }
 
 module.exports = new Home();

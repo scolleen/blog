@@ -63,39 +63,25 @@
                 flowChart       : true,  // 默认不解析
                 sequenceDiagram : true,  // 默认不解析
             });
-            // 判断是否加载评论
-          if (window.screen.availHeight >= document.body.clientHeight) {
-            getComment()
-          } else {
-//            $(window).scroll(function () {
-//              let a = $('.J_container').offset().top
-////            let a = document.getElementById('J_container').offsetTop;
-//              if (a >= $(window).scrollTop() && a < ($(window).scrollTop()+$(window).height())) {
-//                console.log("div在可视范围");
-//              } else {
-//                console.log('不在可视范围')
-//              }
-//            });
-            getComment()
-          }
+
           // 变量定义
             let id = getParam('id')
             let commentNumber = 0
             let commentname = ''
 
-          // 隐藏弹框
-            $('.J_onCancle').on('click', function () {
-              $('.J_commentDialg').css('display', 'none')
-            })
           // 评论用户的评论
           $('body').delegate('.J_comment', 'click', function () {
             $('.J_commentDialg').css('display', 'block');
             commentNumber = $(this).attr('data-comment-id');
             commentname = $(this).parent().find('.J_username').html()
           })
+          // 取消评论
+          $('.J_onCancle').on('click', function () {
+            $('.J_commentDialg').css('display', 'none')
+          })
           // 提交评论
           $('.J_onConfirm').on('click', function () {
-              if (commentNumber === 0) {
+              if (commentNumber === '0' || commentNumber === 0) {
                 postComment('')
               } else {
                 postComment('回复' + commentname + '：')
@@ -113,11 +99,11 @@
                 article_id: id
               },
               success: (data) => {
-                alert('评论成功')
+                alert(data.msg)
                 window.location.href = '/article?id=' + id
               },
               error: (error) => {
-                alert(data.msg)
+                alert(error)
               }
             })
           }
@@ -145,6 +131,21 @@
             var str = $('#template').html()
             var result = ejs.render(str, {list: data.list})
             $('#J_container').html(result)
+          }
+          // 判断是否加载评论
+          if (window.screen.availHeight >= document.body.clientHeight) {
+            getComment()
+          } else {
+//            $(window).scroll(function () {
+//              let a = $('.J_container').offset().top
+////            let a = document.getElementById('J_container').offsetTop;
+//              if (a >= $(window).scrollTop() && a < ($(window).scrollTop()+$(window).height())) {
+//                console.log("div在可视范围");
+//              } else {
+//                console.log('不在可视范围')
+//              }
+//            });
+            getComment()
           }
         })
     </script>

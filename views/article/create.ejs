@@ -48,7 +48,6 @@
     <script src="/javascripts/common/query.js"></script>
 
     <script src="/javascripts/lib/editormd.js"></script>
-    <script src="/javascripts/lib/ejs.min.js"></script>
     <script type="text/javascript">
         var textContent;
         var param = getParam('id');
@@ -68,29 +67,19 @@
             $('.J_submit').click(function () {
                 let content = textContent.getMarkdown();
                 let title = $('.J_title').val();
-                $.ajax({
-                    url: '/article/create',
-                    data: {
-                        title: title,
-                        content: content
-                    },
-                    type: 'POST',
-                    success: (data) => {
-                        if (data.code === 1) {
-                            window.location.href = '/'
-                            alert('成功')
-                        } else {
-                            alert(data.msg)
-                        }
-                    },
-                    error: (error) => {
-                        console.log(error)
-                    }
-                })
+                let data = {
+                  title: title,
+                  content: content
+                }
+                if (param !== undefined) {
+                  getPost(data, '/article/update')
+                } else {
+                  getPost(data, '/article/create')
+                }
             })
         });
 
-        // 修改文章内荣
+        // 修改文章内容
         if (param !== undefined) {
           $.ajax({
             url: '/article/edit',
@@ -103,6 +92,26 @@
               $('.J_title').val(data.title)
               console.log(data.content)
               $('#text-content textarea').html(data.content)
+            },
+            error: (error) => {
+              console.log(error)
+            }
+          })
+        }
+
+        // 接口请求
+        function getPost (data, url) {
+          $.ajax({
+            url: url,
+            data: data,
+            type: 'POST',
+            success: (data) => {
+              if (data.code === 1) {
+                window.location.href = '/'
+                alert(data.msg)
+              } else {
+                alert(data.msg)
+              }
             },
             error: (error) => {
               console.log(error)

@@ -2,6 +2,7 @@ var commontModel = require ('../model/comment')
 
 var Commont = function () {}
 
+// 获取评论
 Commont.prototype.read = function (req, res) {
   let commont = new commontModel();
   let id = req.body.id
@@ -16,6 +17,7 @@ Commont.prototype.read = function (req, res) {
   })
 }
 
+// 创建评论
 Commont.prototype.create = function (req, res) {
   let commont = new  commontModel()
   let username = req.body.username
