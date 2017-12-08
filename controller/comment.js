@@ -1,12 +1,12 @@
-var commontModel = require ('../model/comment')
+var commentModel = require ('../model/comment')
 
-var Commont = function () {}
+var Comment = function () {}
 
 // 获取评论
-Commont.prototype.read = function (req, res) {
-  let commont = new commontModel();
+Comment.prototype.read = function (req, res) {
+  let comment = new commentModel();
   let id = req.body.id
-  commont.read(id).then(result => {
+  comment.read(id).then(result => {
     res.json({
       code: 1,
       list: result,
@@ -18,13 +18,13 @@ Commont.prototype.read = function (req, res) {
 }
 
 // 创建评论
-Commont.prototype.create = function (req, res) {
-  let commont = new  commontModel()
+Comment.prototype.create = function (req, res) {
+  let comment = new  commentModel()
   let username = req.body.username
   let content = req.body.content
   let article_id = req.body.article_id
-  commont.create(username, content, article_id).then(result => {
-    console.log(result)
+  let comment_type = req.body.comment_type
+  comment.create(username, content, article_id, comment_type).then(result => {
     res.json({
       code: 1,
       msg: '提交成功'
@@ -36,4 +36,4 @@ Commont.prototype.create = function (req, res) {
     })
   })
 }
-module.exports = new Commont();
+module.exports = new Comment();

@@ -1,11 +1,11 @@
 var mysql = require('../config/mysql')
 
-var Commont = function () {};
+var Comment = function () {};
 
 // 评论类型： 0：文章评论 1：留言板
 
-// 获取评论
-Commont.prototype.read = function (id) {
+// 获取评论(根据文章)
+Comment.prototype.read = function (id) {
   return new Promise((resolve, reject) => {
     let sql = "SELECT * FROM `blog_comment` WHERE article_id=?"
     mysql.query(sql, [id]).then(result => {
@@ -20,8 +20,8 @@ Commont.prototype.read = function (id) {
   })
 }
 
-// 创建评论
-Commont.prototype.create = function (username, content, article_id) {
+// 创建评论(根据文章)
+Comment.prototype.create = function (username, content, article_id, commemt_type) {
   return new Promise((reslove, reject) => {
     // 校验数据
     try {
@@ -40,8 +40,8 @@ Commont.prototype.create = function (username, content, article_id) {
       return;
     }
 
-    let sql = "INSERT INTO `blog_comment` (`username`, `content`, `article_id`) VALUES (?,?,?)"
-    mysql.query(sql, [username, content, article_id]).then(result => {
+    let sql = "INSERT INTO `blog_comment` (`username`, `content`, `article_id`, `comment_type`) VALUES (?,?,?,?)"
+    mysql.query(sql, [username, content, article_id, commemt_type]).then(result => {
       reslove(result)
     }, error => {
       reject(error)
@@ -49,11 +49,11 @@ Commont.prototype.create = function (username, content, article_id) {
   })
 }
 
-// 获取评论列表
-Commont.prototype.list = function () {
+// 获取评论列表（文章评论）
+Comment.prototype.list = function (type) {
   return new Promise((resolve, reject) => {
-    let sql = "SELECT * FROM `blog_comment`"
-    mysql.query(sql, []).then(result => {
+    let sql = "SELECT * FROM `blog_comment` WHERE comment_type=?"
+    mysql.query(sql, [type]).then(result => {
       if (result.length === 0) {
         resolve('')
       } else {
@@ -66,7 +66,7 @@ Commont.prototype.list = function () {
 }
 
 // 删除评论
-Commont.prototype.delete = function (id) {
+Comment.prototype.delete = function (id) {
   return new Promise((resole, reject) => {
     let sql = 'DELETE FROM `blog_comment` WHERE article_id=?'
     mysql.query(sql, [id]).then(result => {
@@ -77,4 +77,4 @@ Commont.prototype.delete = function (id) {
   })
 }
 
-module.exports = Commont;
+module.exports = Comment;

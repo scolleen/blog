@@ -96,7 +96,8 @@
               data: {
                 username: $('.J_title').val(),
                 content: reply + $('.J_content').val(),
-                article_id: id
+                article_id: id,
+                comment_type: 0
               },
               success: (data) => {
                 alert(data.msg)
