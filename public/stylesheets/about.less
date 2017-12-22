@@ -18,6 +18,11 @@ article {
                     margin-bottom: 40px;
                     h2 {
                         color: #dfdfdf;
+                        .comment {
+                            margin-left: 20px;
+                            font-size: 14px;
+                            color: #222222;
+                        }
                       }
                     .content-item {
                         font-size: 14px;
@@ -28,15 +33,57 @@ article {
                     }
                     .message-item {
                         position: relative;
-                        padding: 10px 15px;
+                        padding: 5px 15px;
+                        border: 1px solid #f3f6f8;
+                        margin-bottom: 5px;
+                        box-sizing: border-box;
+                        overflow: hidden;
                         .time {
                             position: absolute;
                             top:0;
-                            left: 10px;
+                            left: 0;
                             display: inline-block;
-                            width: 50px;
-                            height: 100px;
+                            width: 60px;
+                            height: 100%;
                             border-radius: 0 0 5px 5px;
+                            background: #dfdfdf;
+                            font-size: 22px;
+                            color: #ffffff;
+                            text-align: center;
+                            .up {
+                                height: 49%;
+                                width: 100%;
+                                display: inline-block;
+                                padding-top: 5px;
+                                box-sizing: border-box;
+                                padding-right: 10px;
+                            }
+                            .line {
+                                border: 0;
+                                height: 2px;
+                                background-color: #ffffff;
+                                width: 100%;
+                                display: block;
+                                transform:rotate(-45deg);
+                                box-sizing: border-box;
+                            }
+                            .down {
+                                height:50%;
+                                width: 100%;
+                                display: inline-block;
+                                box-sizing: border-box;
+                                padding-left: 10px;
+                            }
+                        }
+                        .content-item {
+                            margin-left: 60px;
+                            line-height: 1.5;
+                            p {
+                                margin: 0;
+                                margin-bottom: 5px;
+                                font-size: 16px;
+                                color: #dfdfdf;
+                            }
                         }
                     }
                 }

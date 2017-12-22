@@ -16,10 +16,10 @@ Home.prototype.index = function (req, res) {
         index.list(page).then(response => {
             res.render('index', { list: response, count:result , current: page, point: '第' + page +'页'})
         }, error => {
-            console.log('请求错误')
+            console.log(error)
         })
 	}, error => {
-		console.log('请求错误')
+		console.log(error)
 	})
 }
 Home.prototype.list = function (req, res) {
@@ -39,10 +39,10 @@ Home.prototype.list = function (req, res) {
     index.list(page).then(response => {
       res.render('management', { list: response, count:result , current: page, point: '第' + page +'页', title: '文章管理'})
     }, error => {
-      console.log('请求错误')
+      console.log(error)
     })
   }, error => {
-    console.log('请求错误')
+    console.log(error)
   })
 }
 

@@ -10,7 +10,7 @@ Aritcle.prototype.read = function (req, res) {
     article.read(id).then(result => {
         res.render('article/detail', { article: result })
     }, error => {
-        console.log('请求错误')
+        console.log(error)
     })
 }
 
